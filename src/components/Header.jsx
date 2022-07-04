@@ -28,7 +28,7 @@ const Header = () => {
             strokeWidth="32"
           />
         </svg>
-        <h3 className={isDarkModeEnabled ? classes['text-dark'] : ""}>Dark Mode</h3>
+        <h3 className={isDarkModeEnabled ? classes['text-dark'] : ""}>{isDarkModeEnabled ? "Light mode" : "Dark mode"}</h3>
       </div>
     </div>
   );
