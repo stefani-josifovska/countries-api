@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import ModeContext from "./context/mode-context";
 import useRequest from "./hooks/use-request";
 import Header from "./components/Header";
@@ -8,7 +8,7 @@ import CountriesList from "./components/countriesComponents/CountriesList";
 import DropDown from "./components/filteringComponents/DropDown";
 import CountryInfo from "./components/countriesComponents/CountryInfo";
 import Loading from "./components/Loading";
-import classes from './AppStyle.module.css';
+import classes from "./AppStyle.module.css";
 
 function App() {
   const [countriesList, setCountriesList] = useState([]);
@@ -17,7 +17,8 @@ function App() {
   const [isCountrySelected, setIsCountrySelected] = useState(false);
   const [selectedCountry, setSelectedCountry] = useState({});
 
-  const [isDarkModeEnabled, setIsDarkModeEnabled] = useState(false);
+  const modeCtx = useContext(ModeContext);
+  // const [isDarkModeEnabled, setIsDarkModeEnabled] = useState(false);
 
   const { isLoading, error, sendRequest: fetchCountries } = useRequest();
 
@@ -78,38 +79,36 @@ function App() {
   return (
     <div
       style={{
-        backgroundColor: isDarkModeEnabled
+        backgroundColor: modeCtx.isDarkModeEnabled
           ? "hsl(207, 26%, 17%)"
           : "hsl(0, 0%, 98%)",
         minHeight: "100vh",
       }}
     >
-      <ModeContext.Provider value={{ isDarkModeEnabled, setIsDarkModeEnabled }}>
-        <Header />
-        {isLoading && <Loading />}
-        {!isLoading && !isCountrySelected && (
-          <>
-            <div className={classes['dropdown-search']}>
-              <InputForm passInputCountry={passInputCountry} />
-              <DropDown passRegionFilter={passRegionFilter} />
-            </div>
-            <CountriesList
-              passSelectedCountry={passSelectedCountry}
-              countriesList={countriesList}
-              selectedRegion={selectedRegion}
-              typedCountry={typedCountry}
-            />
-          </>
-        )}
-        {!isLoading && isCountrySelected && (
-          <CountryInfo
-            countryInfo={selectedCountry}
-            goBackHandler={goBackHandler}
+      <Header />
+      {isLoading && <Loading />}
+      {!isLoading && !isCountrySelected && (
+        <>
+          <div className={classes["dropdown-search"]}>
+            <InputForm passInputCountry={passInputCountry} />
+            <DropDown passRegionFilter={passRegionFilter} />
+          </div>
+          <CountriesList
             passSelectedCountry={passSelectedCountry}
-            allCountries={countriesList}
+            countriesList={countriesList}
+            selectedRegion={selectedRegion}
+            typedCountry={typedCountry}
           />
-        )}
-      </ModeContext.Provider>
+        </>
+      )}
+      {!isLoading && isCountrySelected && (
+        <CountryInfo
+          countryInfo={selectedCountry}
+          goBackHandler={goBackHandler}
+          passSelectedCountry={passSelectedCountry}
+          allCountries={countriesList}
+        />
+      )}
     </div>
   );
 }
