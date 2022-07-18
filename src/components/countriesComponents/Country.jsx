@@ -8,14 +8,10 @@ const Country = ({
   countryCapital,
   countryRegion,
   countryId,
-  passClickedCountry
 }) => {
-  const clickedCountry = () => {
-    passClickedCountry(countryId);
-  };
 
   return (
-    <CountryCard id={countryId} onClick={clickedCountry}>
+    <CountryCard id={countryId} >
       <img src={countryFlag} alt="" />
       <div>
         <h2>{countryName}</h2>

@@ -1,12 +1,19 @@
-import React, { useState, useContext } from "react";
-import ModeContext from "../../context/mode-context";
+import React, { useState } from "react";
+// import ModeContext from "../../context/mode-context";
+import { useSelector } from "react-redux/es/exports";
+
 import classes from "./DropDown.module.css";
 
 const regionsList = ["Africa", "Americas", "Asia", "Europe", "Oceania"];
 
 const DropDown = ({ showRegionsHandler, passRegionFilter }) => {
   const [isButtonClicked, setIsButtonClicked] = useState(false);
-  const { isDarkModeEnabled } = useContext(ModeContext);
+
+  // const { isDarkModeEnabled } = useContext(ModeContext);
+
+  const isDarkModeEnabled = useSelector(
+    (state) => state.mode.isDarkModeEnabled
+  );
 
   const onButtonClickHandler = (e) => {
     e.preventDefault();

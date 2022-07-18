@@ -1,10 +1,23 @@
 import React from "react";
-import classes from './Loading.module.css'
+import { useSelector } from "react-redux/es/exports";
+import classes from "./Loading.module.css";
 
 const Loading = () => {
+  const isDarkModeEnabled = useSelector(
+    (state) => state.mode.isDarkModeEnabled
+  );
+
   return (
     <div className={classes.loading}>
-      <h2>Loading countries...</h2>
+      <h2
+        style={{
+          color: isDarkModeEnabled
+            ? "white"
+            : "black"
+        }}
+      >
+        Loading countries...
+      </h2>
     </div>
   );
 };

@@ -38,6 +38,10 @@
     color: white;
 }
 
+input:focus {
+    outline: none
+}
+
 @media (min-width: 1000px) {
     .search-form {
         justify-content: flex-start;

@@ -12,7 +12,7 @@ const useRequest = () => {
             const response = await fetch (countriesUrl);
 
             if (!response.ok) {
-                throw new Error("Request failed!");
+                throw new Error("Could not fetch countries!");
             }
 
             const data = await response.json();

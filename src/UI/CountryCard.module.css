@@ -2,8 +2,10 @@
     border-radius: 10px;
     background-color: white;
     box-shadow: 0 0 15px hsl(0, 0%, 85%);
-    width: 80%;
+    /* width: 80%; */
+    width: 100%;
     margin-bottom: 3rem;
+    padding-bottom: 0.5rem;
 }
 
 .country:hover {

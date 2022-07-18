@@ -1,9 +1,13 @@
-import React, { useContext } from "react";
-import ModeContext from "../context/mode-context";
+// import React, { useContext } from "react";
+// import ModeContext from "../context/mode-context";
+import { useSelector } from "react-redux/es/exports";
 import classes from "./InfoButton.module.css";
 
 const InfoButton = (props) => {
-  const { isDarkModeEnabled } = useContext(ModeContext);
+  // const { isDarkModeEnabled } = useContext(ModeContext);
+  const isDarkModeEnabled = useSelector(
+    (state) => state.mode.isDarkModeEnabled
+  );
 
   return (
     <button
