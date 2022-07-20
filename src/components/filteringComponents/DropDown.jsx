@@ -1,15 +1,13 @@
 import React, { useState } from "react";
-// import ModeContext from "../../context/mode-context";
 import { useSelector } from "react-redux/es/exports";
 
 import classes from "./DropDown.module.css";
 
 const regionsList = ["Africa", "Americas", "Asia", "Europe", "Oceania"];
 
-const DropDown = ({ showRegionsHandler, passRegionFilter }) => {
+const DropDown = ({ passRegionFilter }) => {
   const [isButtonClicked, setIsButtonClicked] = useState(false);
-
-  // const { isDarkModeEnabled } = useContext(ModeContext);
+  const [filterText, setFilterText] = useState("Filter by Region");
 
   const isDarkModeEnabled = useSelector(
     (state) => state.mode.isDarkModeEnabled
@@ -21,7 +19,10 @@ const DropDown = ({ showRegionsHandler, passRegionFilter }) => {
   };
 
   const onRegionClickHandler = (e) => {
-    passRegionFilter(e.target.innerHTML);
+    const selectedRegion = e.target.innerHTML;
+    setFilterText(selectedRegion);
+    passRegionFilter(selectedRegion);
+    setIsButtonClicked(false);
   };
 
   return (
@@ -32,7 +33,7 @@ const DropDown = ({ showRegionsHandler, passRegionFilter }) => {
           isDarkModeEnabled ? classes["dropdown-dark"] : ""
         }`}
       >
-        Filter by Region
+        {filterText}
       </button>
       {isButtonClicked && (
         <div
